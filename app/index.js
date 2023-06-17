@@ -1,5 +1,14 @@
+import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView } from 'react-native';
+import { 
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    SafeAreaView,
+    Button,
+    TouchableOpacity, } from 'react-native';
 import {Stack, useRouter} from 'expo-router';
 
 import { COLORS, icons, images, SIZES } from '../constants';
@@ -7,18 +16,86 @@ import { ScreenHeaderBtn, Welcome } from '../components';
 
 export const Home = () => {
     const router = useRouter();
-    return (
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const styles = StyleSheet.create({
+        container: {
+          flex: 1,
+          backgroundColor: "#fff",
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        image: {
+          marginBottom: 40,
+        },
+        inputView: {
+          backgroundColor: "#FFC0CB",
+          borderRadius: 30,
+          width: "70%",
+          height: 45,
+          marginBottom: 20,
+          alignItems: "center",
+        },
+        TextInput: {
+          height: 50,
+          flex: 1,
+          padding: 10,
+          marginLeft: 20,
+        },
+        forgot_button: {
+          height: 30,
+          marginBottom: 30,
+        },
+        loginBtn: {
+          width: "80%",
+          borderRadius: 25,
+          height: 50,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 40,
+          backgroundColor: "#E3F92C",
+        },
+    });
+      return (
         <SafeAreaView style={{
-        flex:1,
-        backgroundColor:COLORS.lightWhite
+            flex:1,
+            backgroundColor: COLORS.lightWhite
         }}>
-            <Stack.Screen
-                options={{
-                    headerStyle:{backgroundColor: COLORS.lightWhite},
-                }}
-            />
+            <Stack.Screen options={{
+                headerStyle: {backgroundColor: COLORS.lightWhite},
+                headerShadowVisible: false,
+                headerTitle: ""
+            }}/>
+            <View style={styles.container}>
+            <Image style={styles.image} borderRadius={110} source={require("../assets/icons/grar.jpeg")} /> 
+            <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput
+                style={styles.TextInput}
+                placeholder="Email."
+                placeholderTextColor="#003f5c"
+                onChangeText={(email) => setEmail(email)}
+                /> 
+            </View> 
+            <View style={styles.inputView}>
+                <TextInput
+                style={styles.TextInput}
+                placeholder="Password."
+                placeholderTextColor="#003f5c"
+                secureTextEntry={true}
+                onChangeText={(password) => setPassword(password)}
+                /> 
+            </View> 
+            <TouchableOpacity>
+                <Text style={styles.forgot_button}>Forgot Password?</Text> 
+            </TouchableOpacity> 
+            <TouchableOpacity style={styles.loginBtn}>
+                <Text style={styles.loginText}>LOGIN</Text> 
+            </TouchableOpacity> 
+            </View> 
+        
         </SafeAreaView>
-  )
+    );
 }
 
 export default Home;
